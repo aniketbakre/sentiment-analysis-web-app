@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analysis</h1>
+        <textarea id="inputText" placeholder="Enter or paste your text here..."></textarea>
+        <button id="checkEmotionBtn" onclick="checkEmotion()">Check Emotion</button>
+        <div id="output"></div>
+        <button onclick="refreshPage()">Refresh The result</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style>
+    :root {
+        --common-width: 95%;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #4b4646;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background-color: #fff;
+        padding-left: 5%;
+        padding-right: 5%;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: auto;
+        text-align: center;
+    }
+
+    textarea, button, #output {
+        width: var(--common-width);
+        margin: auto;
+    }
+
+    textarea {
+        height: 100px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px;
+        width: 60%;
+        margin-bottom: 20px;
+        border: rgb(12, 12, 12);
+        border-radius: 15px;
+        background-color: #007BFF;
+        color: #ffffff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    #output {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 90%;
+        padding: 20px;
+        border: 1px solid #a7a6a6;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+
+    <script>
+        function checkEmotion() {
+            const inputText = document.getElementById('inputText').value.trim();
+            if (inputText === '') {
+                alert('Please enter some text.');
+                return;
+            }
+
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: inputText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = `Detected Emotion: ${data.detectedEmotion}, Confidence: ${data.confidence}`;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+    function refreshPage() {
+        document.getElementById('inputText').value = '';
+        document.getElementById('output').innerText = '';
+    }
+</script>

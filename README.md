@@ -60,7 +60,7 @@ pip install -r requirements.txt
 ```
 
 5. **Place the pre-trained DistilBERT model files in the `model/` directory.**
-model_path: https://drive.google.com/file/d/1o4lwHqudwirRJzVXBk3XxBTzOe4RXBmL/view?usp=sharing
+model_path: [https://drive.google.com/file/d/1o4lwHqudwirRJzVXBk3XxBTzOe4RXBmL/view?usp=sharing](https://drive.google.com/file/d/1o4lwHqudwirRJzVXBk3XxBTzOe4RXBmL/view?usp=drive_link)
 ## Usage
 
 1. **Run the Flask application:**
